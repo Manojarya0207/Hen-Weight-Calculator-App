@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HenWeigh Pro</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #8BC34A;
+            --dark: #2E7D32;
+            --light: #F1F8E9;
+            --accent: #FFC107;
+            --danger: #F44336;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        
+        /* Auth Screens */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: var(--light);
+        }
+        
+        .auth-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .auth-title {
+            text-align: center;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .auth-form button:hover {
+            background-color: var(--dark);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .auth-switch-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+        
+        /* Main App */
+        .app-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-title {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .app-logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .shipment-info {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .shipment-info h3 {
+            margin-top: 0;
+            color: var(--dark);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .info-item input, .info-item select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .number-input-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .number-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            border-right: none;
+        }
+        
+        .increment-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .increment-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .update-btn {
+            background-color: var(--accent);
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .box-section {
+            margin-top: 20px;
+        }
+        
+        .section-title {
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .add-box-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .boxes-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .box-card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .box-card.completed {
+            border-left-color: var(--primary);
+            background-color: var(--light);
+        }
+        
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .box-number {
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 14px;
+        }
+        
+        .box-status {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background-color: #eee;
+        }
+        
+        .box-status.completed {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .box-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .box-form input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .box-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+            gap: 8px;
+        }
+        
+        .save-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .remove-btn {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .calculate-section {
+            margin-top: 30px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .calculate-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .results-container {
+            margin-top: 20px;
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .result-label {
+            font-weight: bold;
+        }
+        
+        .result-value {
+            color: var(--dark);
+        }
+        
+        .download-btn {
+            background-color: var(--accent);
+            color: #333;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        /* Hidden class */
+        .hidden {
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 750px;
+            }
+            
+            .boxes-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Screens -->
+    <div id="auth-container" class="auth-container">
+        <div id="login-card" class="auth-card">
+            <h1 class="auth-title">HenWeigh Pro</h1>
+            <form id="login-form" class="auth-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div class="auth-switch">
+                <button id="show-register" class="auth-switch-btn">Create an account</button>
+            </div>
+        </div>
+        
+        <div id="register-card" class="auth-card hidden">
+            <h1 class="auth-title">Register</h1>
+            <form id="register-form" class="auth-form">
+                <input type="text" id="register-name" placeholder="Full Name" required>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <input type="password" id="register-confirm" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+            </form>
+            <div class="auth-switch">
+                <button id="show-login" class="auth-switch-btn">Already have an account? Login</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main App -->
+    <div id="app-container" class="hidden">
+        <header class="app-header">
+            <div class="app-title">
+                <div class="app-logo">HWP</div>
+                <span>HenWeigh Pro</span>
+            </div>
+            <button id="logout-btn" class="logout-btn">Logout</button>
+        </header>
+        
+        <div class="container">
+            <div class="shipment-info">
+                <h3>Shipment Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Number of Boxes</label>
+                        <div class="number-input-container">
+                            <input type="number" id="num-boxes" min="1" value="1" class="number-input">
+                            <button id="increment-boxes" class="increment-btn" type="button">+</button>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <label>Total Hens</label>
+                        <div class="number-input-container">
+                            <input type="number" id="total-hens-input" min="0" value="0" class="number-input">
+                            <button id="increment-hens" class="increment-btn" type="button">+</button>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <label>Vehicle Number</label>
+                        <input type="text" id="vehicle-number">
+                    </div>
+                    <div class="info-item">
+                        <label>Driver Name</label>
+                        <input type="text" id="driver-name">
+                    </div>
+                    <div class="info-item">
+                        <label>Date</label>
+                        <input type="date" id="shipment-date">
+                    </div>
+                    <div class="info-item">
+                        <label>Weight Unit</label>
+                        <select id="weight-unit">
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="lbs">Pounds (lbs)</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="update-btn" class="update-btn">Update Information</button>
+            </div>
+            
+            <div class="box-section">
+                <h3 class="section-title">
+                    Boxes
+                    <button id="add-box-btn" class="add-box-btn">Add Box</button>
+                </h3>
+                <div id="boxes-container" class="boxes-container">
+                    <!-- Boxes will be added here dynamically -->
+                </div>
+            </div>
+            
+            <div class="calculate-section">
+                <h3>Calculate Results</h3>
+                <button id="calculate-btn" class="calculate-btn">Calculate</button>
+                
+                <div id="results-container" class="results-container">
+                    <div class="result-item">
+                        <span class="result-label">Total Empty Box Weight:</span>
+                        <span id="total-empty" class="result-value">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Full Weight:</span>
+                        <span id="total-full" class="result-value">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Hens Weight:</span>
+                        <span id="total-hens" class="result-value">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Hens Count:</span>
+                        <span id="total-hens-count" class="result-value">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Average Weight per Hen:</span>
+                        <span id="avg-weight" class="result-value">0 kg</span>
+                    </div>
+                </div>
+                
+                <button id="download-btn" class="download-btn hidden">Download PDF Report</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Include jsPDF library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    
+    <script>
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+        
+        // Database simulation with localStorage persistence
+        const database = {
+            users: JSON.parse(localStorage.getItem('henweigh_users')) || [],
+            shipments: JSON.parse(localStorage.getItem('henweigh_shipments')) || [],
+            
+            saveUsers: function() {
+                localStorage.setItem('henweigh_users', JSON.stringify(this.users));
+            },
+            
+            saveShipments: function() {
+                localStorage.setItem('henweigh_shipments', JSON.stringify(this.shipments));
+            },
+            
+            addUser: function(user) {
+                this.users.push(user);
+                this.saveUsers();
+            },
+            
+            addShipment: function(shipment) {
+                this.shipments.push(shipment);
+                this.saveShipments();
+            },
+            
+            findUser: function(email) {
+                return this.users.find(u => u.email === email);
+            },
+            
+            validateUser: function(email, password) {
+                return this.users.find(u => u.email === email && u.password === password);
+            }
+        };
+        
+        // DOM Elements
+        const authContainer = document.getElementById('auth-container');
+        const loginCard = document.getElementById('login-card');
+        const registerCard = document.getElementById('register-card');
+        const appContainer = document.getElementById('app-container');
+        const showRegisterBtn = document.getElementById('show-register');
+        const showLoginBtn = document.getElementById('show-login');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const addBoxBtn = document.getElementById('add-box-btn');
+        const boxesContainer = document.getElementById('boxes-container');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const downloadBtn = document.getElementById('download-btn');
+        const updateBtn = document.getElementById('update-btn');
+        const numBoxesInput = document.getElementById('num-boxes');
+        const totalHensInput = document.getElementById('total-hens-input');
+        const weightUnitSelect = document.getElementById('weight-unit');
+        const incrementBoxesBtn = document.getElementById('increment-boxes');
+        const incrementHensBtn = document.getElementById('increment-hens');
+        
+        // Current user and shipment data
+        let currentUser = null;
+        let currentShipment = {
+            numBoxes: 1,
+            totalHens: 0,
+            vehicleNumber: '',
+            driverName: '',
+            date: new Date().toISOString().split('T')[0],
+            weightUnit: 'kg',
+            boxes: []
+        };
+        
+        // Initialize the app
+        function initApp() {
+            // Check if user is logged in from localStorage
+            const storedUser = localStorage.getItem('currentUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                // Verify user still exists in database
+                if (!database.validateUser(currentUser.email, currentUser.password)) {
+                    localStorage.removeItem('currentUser');
+                    currentUser = null;
+                } else {
+                    showApp();
+                }
+            }
+            
+            if (!currentUser) {
+                showAuth();
+            }
+            
+            // Set current date
+            document.getElementById('shipment-date').value = currentShipment.date;
+            
+            // Add event listeners
+            showRegisterBtn.addEventListener('click', () => {
+                loginCard.classList.add('hidden');
+                registerCard.classList.remove('hidden');
+            });
+            
+            showLoginBtn.addEventListener('click', () => {
+                registerCard.classList.add('hidden');
+                loginCard.classList.remove('hidden');
+            });
+            
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            logoutBtn.addEventListener('click', handleLogout);
+            addBoxBtn.addEventListener('click', addBox);
+            calculateBtn.addEventListener('click', calculateResults);
+            downloadBtn.addEventListener('click', generatePDF);
+            updateBtn.addEventListener('click', updateShipmentInfo);
+            numBoxesInput.addEventListener('change', updateBoxCount);
+            totalHensInput.addEventListener('change', distributeHens);
+            weightUnitSelect.addEventListener('change', updateWeightUnit);
+            
+            // Updated increment button handlers
+            incrementBoxesBtn.addEventListener('click', () => {
+                const currentValue = parseInt(numBoxesInput.value) || 1;
+                numBoxesInput.value = currentValue + 1;
+                currentShipment.numBoxes = currentValue + 1;
+                updateBoxCount();
+            });
+            
+            incrementHensBtn.addEventListener('click', () => {
+                const currentValue = parseInt(totalHensInput.value) || 0;
+                totalHensInput.value = currentValue + 1;
+                currentShipment.totalHens = currentValue + 1;
+                distributeHens();
+            });
+            
+            // Initialize boxes
+            updateBoxCount();
+        }
+        
+        // Show authentication screens
+        function showAuth() {
+            authContainer.classList.remove('hidden');
+            appContainer.classList.add('hidden');
+            loginForm.reset();
+            registerForm.reset();
+        }
+        
+        // Show main app
+        function showApp() {
+            authContainer.classList.add('hidden');
+            appContainer.classList.remove('hidden');
+            renderBoxes();
+        }
+        
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Find user in database
+            const user = database.validateUser(email, password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showApp();
+            } else {
+                alert('Invalid email or password');
+            }
+        }
+        
+        // Handle registration
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+            
+            if (password !== confirm) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Check if email exists
+            if (database.findUser(email)) {
+                alert('Email already exists');
+                return;
+            }
+            
+            // Add new user
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                email,
+                password,
+                createdAt: new Date().toISOString()
+            };
+            
+            database.addUser(newUser);
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            // Show app
+            showApp();
+            
+            // Reset form and show login
+            registerForm.reset();
+            registerCard.classList.add('hidden');
+            loginCard.classList.remove('hidden');
+            
+            alert('Registration successful!');
+        }
+        
+        // Handle logout
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showAuth();
+        }
+        
+        // Update shipment information
+        function updateShipmentInfo() {
+            currentShipment.numBoxes = parseInt(document.getElementById('num-boxes').value) || 1;
+            currentShipment.totalHens = parseInt(document.getElementById('total-hens-input').value) || 0;
+            currentShipment.vehicleNumber = document.getElementById('vehicle-number').value;
+            currentShipment.driverName = document.getElementById('driver-name').value;
+            currentShipment.date = document.getElementById('shipment-date').value;
+            currentShipment.weightUnit = document.getElementById('weight-unit').value;
+            
+            // Update box count if needed
+            updateBoxCount();
+            
+            // Distribute hens if total changed
+            distributeHens();
+            
+            alert('Shipment information updated!');
+        }
+        
+        // Update weight unit
+        function updateWeightUnit() {
+            currentShipment.weightUnit = document.getElementById('weight-unit').value;
+            renderBoxes();
+        }
+        
+        // Update box count based on input
+        function updateBoxCount() {
+            const numBoxes = parseInt(document.getElementById('num-boxes').value) || 1;
+            
+            // Add or remove boxes to match the count
+            while (currentShipment.boxes.length < numBoxes) {
+                addBox();
+            }
+            
+            while (currentShipment.boxes.length > numBoxes) {
+                currentShipment.boxes.pop();
+            }
+            
+            // Redistribute hens when box count changes
+            distributeHens();
+            
+            renderBoxes();
+        }
+        
+        // Distribute hens evenly across boxes
+        function distributeHens() {
+            const totalHens = parseInt(totalHensInput.value) || 0;
+            const numBoxes = currentShipment.boxes.length;
+            
+            if (numBoxes === 0) return;
+            
+            const baseHens = Math.floor(totalHens / numBoxes);
+            let remainder = totalHens % numBoxes;
+            
+            currentShipment.boxes.forEach((box, index) => {
+                box.henCount = baseHens + (index < remainder ? 1 : 0);
+                // Mark as completed if weights are already set
+                if (box.emptyWeight && box.fullWeight) {
+                    box.completed = true;
+                }
+            });
+            
+            renderBoxes();
+        }
+        
+        // Add a new box
+        function addBox() {
+            const boxNumber = currentShipment.boxes.length + 1;
+            
+            currentShipment.boxes.push({
+                id: Date.now().toString() + boxNumber,
+                number: boxNumber,
+                emptyWeight: '',
+                fullWeight: '',
+                henCount: 0,
+                completed: false
+            });
+            
+            // Distribute hens to the new box
+            distributeHens();
+        }
+        
+        // Render all boxes (now smaller in size)
+        function renderBoxes() {
+            boxesContainer.innerHTML = '';
+            
+            currentShipment.boxes.forEach((box, index) => {
+                const boxElement = document.createElement('div');
+                boxElement.className = `box-card ${box.completed ? 'completed' : ''}`;
+                boxElement.innerHTML = `
+                    <div class="box-header">
+                        <span class="box-number">Box #${box.number}</span>
+                        <span class="box-status ${box.completed ? 'completed' : ''}">
+                            ${box.completed ? 'Completed' : 'Pending'}
+                        </span>
+                    </div>
+                    <div class="box-form">
+                        <div>
+                            <label>Empty Weight (${currentShipment.weightUnit})</label>
+                            <input type="number" id="empty-${box.id}" value="${box.emptyWeight}" placeholder="0.00" step="0.01">
+                        </div>
+                        <div>
+                            <label>Full Weight (${currentShipment.weightUnit})</label>
+                            <input type="number" id="full-${box.id}" value="${box.fullWeight}" placeholder="0.00" step="0.01" ${!box.emptyWeight ? 'disabled' : ''}>
+                        </div>
+                        <div>
+                            <label>Number of Hens</label>
+                            <input type="number" id="hens-${box.id}" value="${box.henCount}" placeholder="0" min="0" ${!box.fullWeight ? 'disabled' : ''}>
+                        </div>
+                    </div>
+                    <div class="box-actions">
+                        <button type="button" class="remove-btn" data-id="${box.id}">Remove</button>
+                        <button type="button" class="save-btn" data-id="${box.id}">Save</button>
+                    </div>
+                `;
+                
+                boxesContainer.appendChild(boxElement);
+                
+                // Add event listeners for this box
+                const emptyInput = document.getElementById(`empty-${box.id}`);
+                const fullInput = document.getElementById(`full-${box.id}`);
+                const hensInput = document.getElementById(`hens-${box.id}`);
+                const saveBtn = boxElement.querySelector('.save-btn');
+                const removeBtn = boxElement.querySelector('.remove-btn');
+                
+                emptyInput.addEventListener('change', () => {
+                    if (emptyInput.value) {
+                        fullInput.disabled = false;
+                    } else {
+                        fullInput.disabled = true;
+                        fullInput.value = '';
+                        hensInput.disabled = true;
+                        hensInput.value = '';
+                    }
+                });
+                
+                fullInput.addEventListener('change', () => {
+                    if (fullInput.value) {
+                        hensInput.disabled = false;
+                    } else {
+                        hensInput.disabled = true;
+                        hensInput.value = '';
+                    }
+                });
+                
+                saveBtn.addEventListener('click', () => saveBox(box.id));
+                removeBtn.addEventListener('click', () => removeBox(box.id));
+            });
+        }
+        
+        // Save box data
+        function saveBox(boxId) {
+            const box = currentShipment.boxes.find(b => b.id === boxId);
+            if (!box) return;
+            
+            const emptyWeight = parseFloat(document.getElementById(`empty-${boxId}`).value) || 0;
+            const fullWeight = parseFloat(document.getElementById(`full-${boxId}`).value) || 0;
+            const henCount = parseInt(document.getElementById(`hens-${boxId}`).value) || 0;
+            
+            box.emptyWeight = emptyWeight;
+            box.fullWeight = fullWeight;
+            box.henCount = henCount;
+            box.completed = emptyWeight > 0 && fullWeight > 0 && henCount > 0;
+            
+            // Update total hens if changed
+            const newTotalHens = currentShipment.boxes.reduce((sum, b) => sum + (parseInt(b.henCount) || 0), 0);
+            if (newTotalHens !== currentShipment.totalHens) {
+                currentShipment.totalHens = newTotalHens;
+                totalHensInput.value = newTotalHens;
+            }
+            
+            renderBoxes();
+        }
+        
+        // Remove a box
+        function removeBox(boxId) {
+            currentShipment.boxes = currentShipment.boxes.filter(b => b.id !== boxId);
+            
+            // Update box numbers
+            currentShipment.boxes.forEach((box, index) => {
+                box.number = index + 1;
+            });
+            
+            // Update number of boxes input
+            document.getElementById('num-boxes').value = currentShipment.boxes.length;
+            currentShipment.numBoxes = currentShipment.boxes.length;
+            
+            // Redistribute hens
+            distributeHens();
+        }
+        
+        // Calculate results
+        function calculateResults() {
+            const completedBoxes = currentShipment.boxes.filter(b => b.completed);
+            
+            if (completedBoxes.length === 0) {
+                alert('No completed boxes to calculate');
+                return;
+            }
+            
+            let totalEmpty = 0;
+            let totalFull = 0;
+            let totalHens = 0;
+            let totalHenCount = 0;
+            
+            completedBoxes.forEach(box => {
+                totalEmpty += parseFloat(box.emptyWeight);
+                totalFull += parseFloat(box.fullWeight);
+                totalHenCount += parseInt(box.henCount);
+            });
+            
+            totalHens = totalFull - totalEmpty;
+            const avgWeight = totalHenCount > 0 ? (totalHens / totalHenCount) : 0;
+            
+            // Display results with current unit
+            const unit = currentShipment.weightUnit;
+            document.getElementById('total-empty').textContent = `${totalEmpty.toFixed(2)} ${unit}`;
+            document.getElementById('total-full').textContent = `${totalFull.toFixed(2)} ${unit}`;
+            document.getElementById('total-hens').textContent = `${totalHens.toFixed(2)} ${unit}`;
+            document.getElementById('total-hens-count').textContent = totalHenCount;
+            document.getElementById('avg-weight').textContent = `${avgWeight.toFixed(2)} ${unit}`;
+            
+            resultsContainer.style.display = 'block';
+            downloadBtn.classList.remove('hidden');
+            
+            // Save the shipment to database
+            saveShipment();
+        }
+        
+        // Save the current shipment to database
+        function saveShipment() {
+            const shipmentData = {
+                id: Date.now().toString(),
+                userId: currentUser.id,
+                date: currentShipment.date,
+                vehicleNumber: currentShipment.vehicleNumber,
+                driverName: currentShipment.driverName,
+                numBoxes: currentShipment.numBoxes,
+                totalHens: currentShipment.totalHens,
+                weightUnit: currentShipment.weightUnit,
+                boxes: currentShipment.boxes,
+                createdAt: new Date().toISOString()
+            };
+            
+            database.addShipment(shipmentData);
+        }
+        
+        // Generate PDF report
+        function generatePDF() {
+            const doc = new jsPDF();
+            const unit = currentShipment.weightUnit;
+            
+            // Add title
+            doc.setFontSize(18);
+            doc.text('HenWeigh Pro - Weight Report', 105, 20, { align: 'center' });
+            
+            // Add shipment details
+            doc.setFontSize(12);
+            doc.text('Shipment Details:', 14, 35);
+            
+            const details = [
+                `Date: ${currentShipment.date}`,
+                `Vehicle Number: ${currentShipment.vehicleNumber || 'N/A'}`,
+                `Driver Name: ${currentShipment.driverName || 'N/A'}`,
+                `Total Boxes: ${currentShipment.boxes.length}`,
+                `Completed Boxes: ${currentShipment.boxes.filter(b => b.completed).length}`,
+                `Total Hens: ${currentShipment.totalHens}`
+            ];
+            
+            doc.text(details, 14, 45);
+            
+            // Add summary table
+            doc.autoTable({
+                startY: 80,
+                head: [['Summary', 'Value']],
+                body: [
+                    ['Total Empty Box Weight', `${document.getElementById('total-empty').textContent}`],
+                    ['Total Full Weight', `${document.getElementById('total-full').textContent}`],
+                    ['Total Hens Weight', `${document.getElementById('total-hens').textContent}`],
+                    ['Total Hens Count', `${document.getElementById('total-hens-count').textContent}`],
+                    ['Average Weight per Hen', `${document.getElementById('avg-weight').textContent}`]
+                ],
+                theme: 'grid',
+                headStyles: { fillColor: [76, 175, 80] }
+            });
+            
+            // Add boxes table
+            const boxData = currentShipment.boxes.map(box => {
+                return [
+                    box.number,
+                    box.emptyWeight ? `${box.emptyWeight} ${unit}` : 'N/A',
+                    box.fullWeight ? `${box.fullWeight} ${unit}` : 'N/A',
+                    box.henCount || 'N/A',
+                    box.emptyWeight && box.fullWeight ? `${(box.fullWeight - box.emptyWeight).toFixed(2)} ${unit}` : 'N/A'
+                ];
+            });
+            
+            doc.autoTable({
+                startY: doc.lastAutoTable.finalY + 20,
+                head: [['Box #', `Empty (${unit})`, `Full (${unit})`, 'Hens', `Net (${unit})`]],
+                body: boxData,
+                theme: 'grid',
+                headStyles: { fillColor: [76, 175, 80] }
+            });
+            
+            // Add footer
+            doc.setFontSize(10);
+            doc.setTextColor(150);
+            doc.text(`Generated by HenWeigh Pro on ${new Date().toLocaleString()}`, 105, doc.internal.pageSize.height - 10, { align: 'center' });
+            doc.text(`This App is Created by Manoj S Arya`, 70, doc.internal.pageSize.height - 5, { align: 'left' });
+            
+            // Save the PDF
+            doc.save(`HenWeigh_Report_${currentShipment.date}.pdf`);
+        }
+        
+        // Initialize the app when the page loads
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
