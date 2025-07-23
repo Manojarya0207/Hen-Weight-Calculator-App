@@ -1,0 +1,24 @@
+---------------------------------------------------
+Here are the ownership and the certification details
+of the Hen Weight Calculating 1.0
+---------------------------------------------------
+
+app_name - 						Hen Weight Calculating
+app_alias - 					henweightcalculating
+app_author_name - 				My Company
+app_author_organizational - 	My Company
+app_author_organization - 		My Company
+app_author_locality - 			My Company
+app_author_state - 				Telangana
+app_author_country - 			India
+app_password - 					tICsNdvSutuD
+app_versionName - 				versionName "1.0"
+app_versionCode - 				100
+
+---------------------------------------------------
+The certification was created by WebIntoApp.com at
+the Tuesday 22nd of July 2025 06:21:54 AM
+
+https://webintoapp.com
+---------------------------------------------------
+
