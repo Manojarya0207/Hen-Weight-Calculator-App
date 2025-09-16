@@ -30,6 +30,8 @@ A lightweight, mobile-friendly web app to estimate the weight of hens using simp
 > _Add real screenshots into `/assets` for a nicer look._
 
 **Screenshots**
+<img width="273" height="612" alt="image" src="https://github.com/user-attachments/assets/11675684-3144-4dce-a2d2-d6ce4bcaf394" />
+<img width="281" height="619" alt="image" src="https://github.com/user-attachments/assets/5d7b02ac-b1cc-4396-8d3b-63c84253a5d6" />
 
 
 ---
